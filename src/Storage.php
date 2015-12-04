@@ -18,7 +18,8 @@ class Storage
      * @param  string $separator the string used to separate levels of the array, defaults to "."
      * @return mixed             the value of that element in the data array (or the default value)
      */
-    public function get($key, $default = null, $separator = '.') {
+    public function get($key, $default = null, $separator = '.')
+    {
         $key = array_filter(explode($separator, $key));
         $tmp = $this->data;
         foreach ($key as $k) {
@@ -37,7 +38,8 @@ class Storage
      * @param  string $separator the string used to separate levels of the array, defaults to "."
      * @return mixed             the stored value
      */
-    public function set($key, $value, $separator = '.') {
+    public function set($key, $value, $separator = '.')
+    {
         $key = array_filter(explode($separator, $key));
         $tmp = &$this->data;
         foreach ($key as $k) {
@@ -55,7 +57,8 @@ class Storage
      * @param  string $separator the string used to separate levels of the array, defaults to "."
      * @return boolean           the status of the del operation - true if successful, false otherwise
      */
-    public function del($key, $separator = '.') {
+    public function del($key, $separator = '.')
+    {
         $key = explode($separator, $key);
         $lst = array_pop($key);
         $tmp = &$this->data;

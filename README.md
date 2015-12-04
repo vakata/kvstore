@@ -21,12 +21,12 @@ $ composer require vakata/kvstore
 ``` php
 $config = new \vakata\kvstore\Storage([ 'sample' => [ 'data' => 1] ]);
 $config->get('sample.data'); // 1
-$config->set('sample.data', 2); // true
+$config->set('sample.data', 2); // 2
 $config->get('sample.data'); // 2
 $config->del('sample.data'); // true
 $config->get('sample.data'); // null
 $config->get('sample.data', 'default'); // "default"
-$config->set('new.data.to.add', 2); // true
+$config->set('new.data.to.add', 2); // 2
 $config->get('new.data'); // [ 'to' => [ 'add' => 2 ] ]
 ```
 
