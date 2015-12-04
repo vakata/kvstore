@@ -2,7 +2,7 @@
 
 namespace vakata\kvstore;
 
-class Storage
+class Storage implements StorageInterface
 {
     protected $data;
 
