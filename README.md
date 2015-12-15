@@ -30,6 +30,8 @@ $config->set('new.data.to.add', 2); // 2
 $config->get('new.data'); // [ 'to' => [ 'add' => 2 ] ]
 ```
 
+Read more in the [API docs](docs/README.md)
+
 ## Testing
 
 ``` bash
