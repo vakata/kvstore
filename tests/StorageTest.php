@@ -49,11 +49,11 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	 * @depends testSet
 	 */
 	public function testDel() {
-		$this->assertEquals(false, self::$storage->del('complex2'));
-		$this->assertEquals(false, self::$storage->del('complex.nested2.nested2'));
-		$this->assertEquals(true, self::$storage->del('complex.nested.overwrite'));
+		$this->assertEquals(null, self::$storage->del('complex2'));
+		$this->assertEquals(null, self::$storage->del('complex.nested2.nested2'));
+		$this->assertEquals('ok', self::$storage->del('complex.nested.overwrite'));
 		$this->assertEquals([], self::$storage->get('complex.nested'));
-		$this->assertEquals(true, self::$storage->del('complex'));
+		$this->assertEquals(['nested'=>[]], self::$storage->del('complex'));
 		$this->assertEquals(null, self::$storage->get('complex'));
 	}
 }

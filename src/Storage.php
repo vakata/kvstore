@@ -59,7 +59,7 @@ class Storage implements StorageInterface
      * @method set
      * @param  string $key       the element to delete (can be a deeply nested element of the data array)
      * @param  string $separator the string used to separate levels of the array, defaults to "."
-     * @return boolean           the status of the del operation - true if successful, false otherwise
+     * @return mixed|null        the value that was just deleted or null
      */
     public function del($key, $separator = '.')
     {
@@ -68,14 +68,15 @@ class Storage implements StorageInterface
         $tmp = &$this->data;
         foreach ($key as $k) {
             if (!isset($tmp[$k])) {
-                return false;
+                return null;
             }
             $tmp = &$tmp[$k];
         }
         if (!isset($tmp[$lst])) {
-            return false;
+            return null;
         }
+        $val = $tmp[$lst];
         unset($tmp[$lst]);
-        return true;
+        return $val;
     }
 }
