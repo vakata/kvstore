@@ -25,7 +25,7 @@ class Storage implements StorageInterface
      * @param  string $separator the string used to separate levels of the array, defaults to "."
      * @return mixed             the value of that element in the data array (or the default value)
      */
-    public function get(string $key, mixed $default = null, string $separator = ''): mixed
+    public function get(string $key, mixed $default = null, string $separator = '.'): mixed
     {
         if (!$separator) {
             return $this->data[$key] ?? $default;
@@ -47,7 +47,7 @@ class Storage implements StorageInterface
      * @param  string $separator the string used to separate levels of the array, defaults to "."
      * @return mixed             the stored value
      */
-    public function set(string $key, mixed $value, string $separator = ''): mixed
+    public function set(string $key, mixed $value, string $separator = '.'): mixed
     {
         if (!$separator) {
             return $this->data[$key] = $value;
@@ -68,7 +68,7 @@ class Storage implements StorageInterface
      * @param  string $separator the string used to separate levels of the array, defaults to "."
      * @return mixed|null        the value that was just deleted or null
      */
-    public function del(string $key, string $separator = ''): mixed
+    public function del(string $key, string $separator = '.'): mixed
     {
         if (!$separator) {
             $val = $this->data[$key];
