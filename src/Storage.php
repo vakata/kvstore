@@ -4,10 +4,15 @@ namespace vakata\kvstore;
 
 class Storage implements StorageInterface
 {
-    protected $data;
+    /**
+     * internal storage
+     *
+     * @var array<string,mixed>
+     */
+    protected array $data;
     /**
      * Create an instance.
-     * @param  array       &$data optional initial data for the storage
+     * @param  array<string,mixed>       &$data optional initial data for the storage
      */
     public function __construct(array &$data = [])
     {
@@ -20,8 +25,11 @@ class Storage implements StorageInterface
      * @param  string $separator the string used to separate levels of the array, defaults to "."
      * @return mixed             the value of that element in the data array (or the default value)
      */
-    public function get($key, $default = null, $separator = '.')
+    public function get(string $key, mixed $default = null, string $separator = ''): mixed
     {
+        if (!$separator) {
+            return $this->data[$key] ?? $default;
+        }
         $key = array_filter(explode($separator, $key));
         $tmp = $this->data;
         foreach ($key as $k) {
@@ -39,8 +47,11 @@ class Storage implements StorageInterface
      * @param  string $separator the string used to separate levels of the array, defaults to "."
      * @return mixed             the stored value
      */
-    public function set($key, $value, $separator = '.')
+    public function set(string $key, mixed $value, string $separator = ''): mixed
     {
+        if (!$separator) {
+            return $this->data[$key] = $value;
+        }
         $key = array_filter(explode($separator, $key));
         $tmp = &$this->data;
         foreach ($key as $k) {
@@ -57,8 +68,13 @@ class Storage implements StorageInterface
      * @param  string $separator the string used to separate levels of the array, defaults to "."
      * @return mixed|null        the value that was just deleted or null
      */
-    public function del($key, $separator = '.')
+    public function del(string $key, string $separator = ''): mixed
     {
+        if (!$separator) {
+            $val = $this->data[$key];
+            unset($this->data[$key]);
+            return $val;
+        }
         $key = explode($separator, $key);
         $lst = array_pop($key);
         $tmp = &$this->data;

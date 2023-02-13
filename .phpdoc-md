@@ -1,9 +1,0 @@
-<?php
-return (object)[
-    'rootNamespace' => 'vakata\kvstore',
-    'destDirectory' => 'docs',
-    'format' => 'github',
-    'classes' => [
-        '\\vakata\\kvstore\\Storage'
-    ],
-];

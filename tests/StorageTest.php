@@ -1,18 +1,9 @@
 <?php
 namespace vakata\kvstore\test;
 
-class StorageTest extends \PHPUnit_Framework_TestCase
+class StorageTest extends \PHPUnit\Framework\TestCase
 {
 	protected static $storage = null;
-
-	public static function setUpBeforeClass() {
-	}
-	public static function tearDownAfterClass() {
-	}
-	protected function setUp() {
-	}
-	protected function tearDown() {
-	}
 
 	public function testCreate() {
 		$data = [ 'initial' => 1 ];
@@ -33,9 +24,9 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('overwrite', self::$storage->get('simple'));
 		$this->assertEquals(['nested' => 'value'], self::$storage->set('complex', ['nested' => 'value']));
 		$this->assertEquals(['nested' => 'value'], self::$storage->get('complex'));
-		$this->assertEquals('value', self::$storage->get('complex.nested'));
+		$this->assertEquals('value', self::$storage->get('complex.nested', null, '.'));
 		$this->assertEquals(['nested' => ['overwrite' => 'ok']], self::$storage->set('complex', ['nested' => ['overwrite' => 'ok']]));
-		$this->assertEquals('ok', self::$storage->get('complex.nested.overwrite'));
+		$this->assertEquals('ok', self::$storage->get('complex.nested.overwrite', null, '.'));
 	}
 	/**
 	 * @depends testSet
@@ -43,16 +34,16 @@ class StorageTest extends \PHPUnit_Framework_TestCase
 	public function testGet() {
 		$this->assertEquals('ok', self::$storage->get('complex/nested/overwrite', null, '/'));
 		$this->assertEquals(null, self::$storage->get('complex.nested.overwrite', null, '/'));
-		$this->assertEquals('default', self::$storage->get('complex.nested.overwrite2', 'default'));
+		$this->assertEquals('default', self::$storage->get('complex.nested.overwrite2', 'default', '.'));
 	}
 	/**
 	 * @depends testSet
 	 */
 	public function testDel() {
 		$this->assertEquals(null, self::$storage->del('complex2'));
-		$this->assertEquals(null, self::$storage->del('complex.nested2.nested2'));
-		$this->assertEquals('ok', self::$storage->del('complex.nested.overwrite'));
-		$this->assertEquals([], self::$storage->get('complex.nested'));
+		$this->assertEquals(null, self::$storage->del('complex.nested2.nested2', '.'));
+		$this->assertEquals('ok', self::$storage->del('complex.nested.overwrite', '.'));
+		$this->assertEquals([], self::$storage->get('complex.nested', null, '.'));
 		$this->assertEquals(['nested'=>[]], self::$storage->del('complex'));
 		$this->assertEquals(null, self::$storage->get('complex'));
 	}
