@@ -27,7 +27,7 @@ class Storage implements StorageInterface
      */
     public function get(string $key, mixed $default = null, string $separator = '.'): mixed
     {
-        if (!$separator) {
+        if (!$separator || strpos($key, $separator) === false) {
             return $this->data[$key] ?? $default;
         }
         $key = array_filter(explode($separator, $key));
